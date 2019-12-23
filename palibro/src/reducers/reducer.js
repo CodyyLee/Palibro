@@ -7,6 +7,13 @@ export const initialState = {
     results: [],
     player: {},
     match_history: [],
+    champions: [],
+    classes: {
+        support: ["Furia", "Grohk", "Grover", "Pip", "Seris", "Ying", "Io", "Jenos", "Mal'Damba"],
+        damage: ["Bomb King", "Cassie", "Dredge", "Lian", "Sha Lin", "Strix", "Willo", "Drogoz", "Tyra", "Imani", "Victor", "Kinessa", "Vivian"],
+        flank: ["Androxus", "Buck", "Evie", "Moji", "Skye", "Talus", "Koga", "Lex", "Maeve", "Zhin"],
+        frontline: ["Ash", "Atlas", "Barik", "Fernando", "Inara", "Makoa", "Raum", "Ruckus", "Terminus", "Khan", "Torvald"]
+    },
     session: {
         id: "",
         time: "",

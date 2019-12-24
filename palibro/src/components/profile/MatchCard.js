@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import { addOccurance } from "../../actions/addOccurance";
 
 const Card = styled.div`
     width: 100%;
@@ -8,6 +9,14 @@ const Card = styled.div`
     aling-items: center;
     justify-content: space-between;
     margin: 10px auto;
+
+    div {
+        padding: 5px;
+
+        h3,p {
+            margin: 0;
+        }
+    }
 `
 
 const Status = styled.div`
@@ -32,57 +41,103 @@ const MatchCard = (props) => {
             flank: false,
             damage: false,
             support: false
-        }
+        },
+        class: ""
     })
 
-    useEffect(() => {
+    useEffect(() => {        
         if(props.classes.support.includes(props.champion)) {
             setStats({
+                ...stats,
                 healing: props.Healing,
                 name: {
                     frontline: false,
                     flank: false,
                     damage: false,
                     support: true
-                }
+                },
+                class: "Support"
             })
         }
         else if(props.classes.damage.includes(props.champion)) {
             setStats({
+                ...stats,
                 damage: props.Damage,
                 name: {
                     frontline: false,
                     flank: false,
                     damage: true,
                     support: false
-                }
+                },
+                class: "Damage"
             })
         }
         else if(props.classes.frontline.includes(props.champion)) {
             setStats({
+                ...stats,
                 objective: props.Objective_Assists,
                 name: {
                     frontline: true,
                     flank: false,
                     damage: false,
                     support: false
-                }
+                },
+                class: "Frontline"
             })
         }
         else {
             setStats({
+                ...stats,
                 kills: props.Kills,
                 name: {
                     frontline: false,
                     flank: true,
                     damage: false,
                     support: false
-                }
+                },
+                class: "Flank"
             })
         }
-
-        
     }, [])
+
+    const classSelect = () => {
+        switch(stats.class) {
+            case "Support":
+                props.addOccurance(props.healing, "Support")
+                return(
+                    <div>
+                        <p>Healing</p>
+                        <p>{props.healing}</p>
+                    </div>
+                )
+            case "Frontline":
+                props.addOccurance(props.objective, "Frontline")
+                return(
+                    <div>
+                        <p>Objective Time</p>
+                        <p>{props.objective}</p>
+                    </div>
+                )
+            case "Flank":
+                props.addOccurance(props.kills, "Flank")
+                return(
+                    <div>
+                        <p>Kills</p>
+                        <p>{props.kills}</p>
+                    </div>
+                )
+            case "Damage":
+                props.addOccurance(props.damage, "Damage")
+                return(
+                    <div>
+                        <p>Damage</p>
+                        <p>{props.damage}</p>
+                    </div>
+                )
+            default:
+                return null;
+        }
+    }
 
     return(
         <>
@@ -91,8 +146,9 @@ const MatchCard = (props) => {
                 <Status>
                     <h3>{props.winstatus}</h3>
                     <p>{props.champion}</p>
-                    
                 </Status>
+
+                {classSelect()}
 
                 <Stats>
                     <p>KDA</p>
@@ -104,6 +160,8 @@ const MatchCard = (props) => {
                     <h3>{props.winstatus}</h3>
                     <p>{props.champion}</p>
                 </Status>
+
+                {classSelect()}
 
                 <Stats>
                     <p>KDA</p>
@@ -123,8 +181,9 @@ const mapStateToProps = (state) => {
             damage: state.classes.damage,
             frontline: state.classes.frontline,
             flank: state.classes.flank
-        }
+        },
+        role_occurance: state.role_occurance
     })
 }
 
-export default connect(mapStateToProps, {})(MatchCard)
+export default connect(mapStateToProps, {addOccurance})(MatchCard)

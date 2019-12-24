@@ -17,10 +17,6 @@ const Heading = styled.div`
     text-align: center;
 `
 
-const Name = styled.div`
-
-`
-
 const Level = styled.div`
     display: flex;
     align-items: center;
@@ -108,7 +104,7 @@ const PlayerProfile = (props) => {
 
             <Matches>
                 {props.match_history.map((match, index) => {
-                    return <MatchCard key={index} winstatus={match.Win_Status} champion={match.Champion} kills={match.Kills} deaths={match.Deaths} assists={match.Assists}/>
+                    return <MatchCard key={index} winstatus={match.Win_Status} champion={match.Champion} kills={match.Kills} deaths={match.Deaths} assists={match.Assists} healing={match.Healing} objective={match.Objective_Assists} damage={match.Damage}/>
                 })}
             </Matches>
         </Container>
@@ -119,7 +115,8 @@ const mapStateToProps = state => {
     return({
         ...state,
         player: state.player,
-        match_history: state.match_history
+        match_history: state.match_history,
+        add_occurance: state.add_occurance
     })
 }
 

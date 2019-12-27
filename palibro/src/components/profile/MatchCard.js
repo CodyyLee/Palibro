@@ -103,7 +103,6 @@ const MatchCard = (props) => {
     const classSelect = () => {
         switch(stats.class) {
             case "Support":
-                props.addOccurance(props.healing, "Support")
                 return(
                     <div>
                         <p>Healing</p>
@@ -111,7 +110,6 @@ const MatchCard = (props) => {
                     </div>
                 )
             case "Frontline":
-                props.addOccurance(props.objective, "Frontline")
                 return(
                     <div>
                         <p>Objective Time</p>
@@ -119,7 +117,6 @@ const MatchCard = (props) => {
                     </div>
                 )
             case "Flank":
-                props.addOccurance(props.kills, "Flank")
                 return(
                     <div>
                         <p>Kills</p>
@@ -127,7 +124,6 @@ const MatchCard = (props) => {
                     </div>
                 )
             case "Damage":
-                props.addOccurance(props.damage, "Damage")
                 return(
                     <div>
                         <p>Damage</p>

@@ -53,6 +53,14 @@ const PlayerProfile = (props) => {
         loss: 0
     })
 
+    const [role, setRole] = useState({
+        support: 0,
+        frontline: 0,
+        flank: 0,
+        damage: 0,
+        total: 0
+    })
+
     useEffect(() => {
         props.match_history.map((match) => {
             setKda({
@@ -116,7 +124,8 @@ const mapStateToProps = state => {
         ...state,
         player: state.player,
         match_history: state.match_history,
-        add_occurance: state.add_occurance
+        add_occurance: state.add_occurance,
+        classes: state.classes
     })
 }
 
